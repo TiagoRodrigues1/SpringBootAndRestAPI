@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>pt.ufp.info.esof</groupId>
-    <artifactId>lectures</artifactId>
+    <artifactId>projeto</artifactId>
     <version>1.0</version>
-    <name>lectures</name>
+    <name>projeto</name>
     <description>Project to support practical classes</description>
 
     <properties>
