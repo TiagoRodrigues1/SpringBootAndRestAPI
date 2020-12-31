@@ -5,22 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
-
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-@Entity
 public class TarefaEfetiva {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private float progresso;
     private float periodoTempoTrabalhado;
     private boolean concluida;
-    @ManyToOne
     private TarefaPrevista tarefaPrevista;
 
     public void registarTempoTrabalhado(float tempo) {

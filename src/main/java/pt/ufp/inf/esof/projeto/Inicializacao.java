@@ -1,5 +1,7 @@
 package pt.ufp.inf.esof.projeto;
 
+import lombok.SneakyThrows;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -7,56 +9,81 @@ import org.springframework.stereotype.Component;
 import pt.ufp.inf.esof.projeto.modelos.*;
 import pt.ufp.inf.esof.projeto.repositories.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Component
 public class Inicializacao implements ApplicationListener<ContextRefreshedEvent> {
-    private final ClienteRepository clienteRepository; //Atributos podem ser finais devido ao construtor ser autowired
-    private final EmpregadoRepository empregadoRepository;
-    private final ProjetoRepository projetoRepository;
-    private final TarefaPrevistaRepository tarefaPrevistaRepository;
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    public Inicializacao(ClienteRepository clienteRepository, EmpregadoRepository empregadoRepository, ProjetoRepository projetoRepository, TarefaPrevistaRepository tarefaPrevistaRepository) {
-        this.clienteRepository = clienteRepository;
-        this.empregadoRepository = empregadoRepository;
-        this.projetoRepository = projetoRepository;
-        this.tarefaPrevistaRepository = tarefaPrevistaRepository;
-    }
+    private  ClienteRepository clienteRepository; //Atributos podem ser finais devido ao construtor ser autowired
+    @Autowired
+    private  EmpregadoRepository empregadoRepository;
+    @Autowired
+    private  ProjetoRepository projetoRepository;
+    @Autowired
+    private  TarefaPrevistaRepository tarefaPrevistaRepository;
+    @Autowired
+    private  TarefaEfetivaRepository tarefaEfetivaRepository;
 
+    @SneakyThrows
     @Override
     public void onApplicationEvent (ContextRefreshedEvent contextRefreshedEvent) {
 
-        System.out.println("\n\n\n Inicializou \n\n\n");
+        logger.info("\n\n\n Inicializou \n\n\n");
 
         Projeto projeto = new Projeto();
         projeto.setNome("Plataforma Digital");
 
-        TarefaPrevista tarefa = new TarefaPrevista();
-        tarefa.setNome("Tarefa 1");
-        TarefaEfetiva tarefa2 = new TarefaEfetiva();
-        tarefa2.setNome("TarefaEfetiva");
-        tarefa2.registarTempoTrabalhado(10);
+        TarefaPrevista tarefaPrevista = new TarefaPrevista();
+        tarefaPrevista.setNome("TarefaPrevista");
+        tarefaPrevista.setTempoPrevistoConlusao(10);
+        TarefaPrevista tarefaPrevista1 = new TarefaPrevista();
+        tarefaPrevista1.setNome("TarefaPrevista1");
+        tarefaPrevista1.setTempoPrevistoConlusao(20);
+
         TarefaEfetiva tarefaEfetiva = new TarefaEfetiva();
-        tarefaEfetiva.setNome("TarefaEfetiva1");
-        tarefaEfetiva.registarTempoTrabalhado(5);
-        tarefa.adicionaTarefa(tarefa2);
-        tarefa.adicionaTarefa(tarefaEfetiva);
+        tarefaEfetiva.setNome("TarefaEfetive");
+        tarefaEfetiva.setProgresso(10);
+
+        tarefaPrevista.adicionaTarefa(tarefaEfetiva);
 
         Empregado empregado = new Empregado();
-        empregado.setNome("Joao");
-        empregado.setEmail("Joao@gmail.com");
-
-        Cliente cliente = new Cliente();
-        cliente.setNome("Cliente 1");
-
+        empregado.setEmail("teste@teste.pt");
+        empregado.setNome("Tiago");
         empregado.setCargo(Empregado.Cargo.ANALISTA_JUNIOR);
-        cliente.adicionaProjeto(projeto);
-        empregado.adicionaTarefa(tarefa);
-        projeto.adicionaTarefa(tarefa);
+        //tarefaPrevista.adicionaEmpregado(empregado);
+        empregado.adicionaTarefa(tarefaPrevista);
+
+        Empregado empregado1 = new Empregado();
+        empregado1.setCargo(Empregado.Cargo.ANALISTA_SENIOR);
+        empregado1.setNome("Miguel");
+        empregado1.setEmail("miguel@gmail.com");
+        //tarefaPrevista1.adicionaEmpregado(empregado1);
+        empregado1.adicionaTarefa(tarefaPrevista1);
 
         this.empregadoRepository.save(empregado);
-        this.tarefaPrevistaRepository.save(tarefa);
-        this.projetoRepository.save(projeto);
+        this.empregadoRepository.save(empregado1);
+        this.tarefaPrevistaRepository.save(tarefaPrevista);
+        this.tarefaPrevistaRepository.save(tarefaPrevista1);
+        this.tarefaEfetivaRepository.save(tarefaEfetiva);
+
+
+
+        Cliente cliente = new Cliente();
+        cliente.setNome("Tiago");
+        cliente.setUsername("Tiago");
+        cliente.setPassword("teste");
+
+        cliente.adicionaProjeto(projeto);
         this.clienteRepository.save(cliente);
+
+        projeto.adicionaTarefa(tarefaPrevista);
+        projeto.adicionaTarefa(tarefaPrevista1);
+
+        this.projetoRepository.save(projeto);
+
 
     }
 
