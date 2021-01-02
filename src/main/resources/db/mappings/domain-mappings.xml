@@ -19,6 +19,20 @@
             <one-to-many name="projetos" mapped-by="cliente"><cascade><cascade-all/></cascade></one-to-many>
         </attributes>
     </entity>
+    <entity class="Empregado">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="email">
+                <column name="email"/>
+            </basic>
+            <basic name="cargo">
+                <column name="cargo"/>
+            </basic>
+            <one-to-many name="tarefa" mapped-by="empregado"><cascade><cascade-all/></cascade></one-to-many>
+        </attributes>
+    </entity>
     <entity class="TarefaPrevista">
         <attributes>
             <id name="id">
@@ -64,20 +78,7 @@
             <one-to-many name="tarefas" mapped-by="projeto"><cascade><cascade-all/></cascade></one-to-many>
         </attributes>
     </entity>
-    <entity class="Empregado">
-        <attributes>
-            <id name="id">
-                <generated-value strategy="IDENTITY"/>
-            </id>
-            <basic name="email">
-                <column name="email"/>
-            </basic>
-            <basic name="cargo">
-                <column name="cargo"/>
-            </basic>
-            <one-to-many name="tarefa" mapped-by="empregado"><cascade><cascade-all/></cascade></one-to-many>
-        </attributes>
-    </entity>
+
     <mapped-superclass class="Utilizador">
     </mapped-superclass>
 </entity-mappings>

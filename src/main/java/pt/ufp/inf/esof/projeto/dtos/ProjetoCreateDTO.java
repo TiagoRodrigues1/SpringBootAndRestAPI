@@ -11,15 +11,15 @@ import java.util.stream.Collectors;
 @Data
 public class ProjetoCreateDTO implements CreateDTO<Projeto> {
     private String nome;
-    private List<TarefaPrevistaCreateDTO> tarefas = new ArrayList<>();
-    private Cliente cliente;
+    //private List<TarefaPrevistaCreateDTO> tarefas = new ArrayList<>();
+    //private Cliente cliente;
 
     @Override
     public Projeto converter () {
         Projeto projeto = new Projeto();
         projeto.setNome(this.getNome());
-        projeto.setCliente(this.cliente);
-        projeto.setTarefas(this.tarefas.stream().map(TarefaPrevistaCreateDTO::converter).collect(Collectors.toList()));
+        //projeto.setCliente(this.cliente);
+        //projeto.setTarefas(this.tarefas.stream().map(TarefaPrevistaCreateDTO::converter).collect(Collectors.toList()));
         return projeto;
     }
 }

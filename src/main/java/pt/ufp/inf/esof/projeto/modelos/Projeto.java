@@ -1,5 +1,6 @@
 package pt.ufp.inf.esof.projeto.modelos;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class Projeto {
     private Long id;
     private String nome;
@@ -26,7 +28,7 @@ public class Projeto {
     }
 
     public float calcularTempo() {
-       float tempoConclusao = 0;
+        float tempoConclusao = 0;
         for(TarefaPrevista t : tarefas) {
             tempoConclusao += t.getTempoPrevistoConlusao();
         }

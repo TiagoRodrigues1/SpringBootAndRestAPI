@@ -9,6 +9,6 @@ import java.util.List;
 @Data
 public class ProjetoRespondeDTO {
     private String nome;
-    private List<TarefaPrevistaCreateDTO> tarefas = new ArrayList<>();
-    private Cliente cliente;
+    //private List<TarefaPrevistaCreateDTO> tarefas = new ArrayList<>();
+    //private Cliente cliente;
 }

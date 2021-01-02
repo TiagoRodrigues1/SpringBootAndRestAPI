@@ -9,15 +9,17 @@ import java.util.stream.Collectors;
 @Data
 public class EmpregadoCreateDTO  implements CreateDTO<Empregado> {
     private String email;
-    private List<TarefaPrevistaCreateDTO> tarefas = new ArrayList<>();
+    //private List<TarefaPrevistaCreateDTO> tarefas = new ArrayList<>();
     private Empregado.Cargo cargo;
+    private String nome;
 
     @Override
     public Empregado converter() {
         Empregado empregado = new Empregado();
         empregado.setEmail(this.email);
         empregado.setCargo(this.cargo);
-        empregado.setTarefa(tarefas.stream().map(TarefaPrevistaCreateDTO::converter).collect(Collectors.toList()));
+        empregado.setNome(this.nome);
+        //empregado.setTarefa(tarefas.stream().map(TarefaPrevistaCreateDTO::converter).collect(Collectors.toList()));
         return empregado;
     }
 

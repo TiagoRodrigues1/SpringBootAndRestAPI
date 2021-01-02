@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pt.ufp.inf.esof.projeto.dtos.EmpregadoCreateDTO;
 import pt.ufp.inf.esof.projeto.dtos.TarefaPrevistaCreateDTO;
-import pt.ufp.inf.esof.projeto.dtos.TarefaResponseDTO;
+import pt.ufp.inf.esof.projeto.dtos.TarefaPrevistaResponseDTO;
 import pt.ufp.inf.esof.projeto.dtos.conversores.ConverterTarefaParaDTO;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
 import pt.ufp.inf.esof.projeto.services.TarefaService;
@@ -23,14 +23,14 @@ public class TarefaController {
     public TarefaController (TarefaService tarefaService) { this.tarefaService = tarefaService;}
 
     @PostMapping
-    public ResponseEntity<TarefaResponseDTO> criarTarefa (@RequestBody TarefaPrevistaCreateDTO tarefa) {
+    public ResponseEntity<TarefaPrevistaResponseDTO> criarTarefa (@RequestBody TarefaPrevistaCreateDTO tarefa) {
         Optional<TarefaPrevista> optionalTarefaPrevista = tarefaService.criarTarefa(tarefa.converter());
         return optionalTarefaPrevista.map(value -> ResponseEntity.ok(converterTarefaParaDTO.converter(value))).orElseGet(() -> ResponseEntity.badRequest().build());
 
     }
 
     @PatchMapping("/empregado/{id}")
-    public ResponseEntity<TarefaResponseDTO> adicionaEmpregado(@PathVariable Long id, @RequestBody EmpregadoCreateDTO empregado) {
+    public ResponseEntity<TarefaPrevistaResponseDTO> adicionaEmpregado(@PathVariable Long id, @RequestBody EmpregadoCreateDTO empregado) {
         Optional<TarefaPrevista> optionalTarefaPrevista = tarefaService.adicionaEmpregado(id,empregado.converter());
         return optionalTarefaPrevista.map(tarefaPrevista -> ResponseEntity.ok(converterTarefaParaDTO.converter(tarefaPrevista))).orElseGet(() -> ResponseEntity.badRequest().build());
     }

@@ -29,7 +29,8 @@ public class ProjetoServiceImpl implements ProjetoService {
         Optional<Projeto> optionalProjeto = projetoRepository.findByNome(projeto.getNome());
         if (optionalProjeto.isEmpty()) {
             projetoRepository.save(projeto); // salvar o projeto
-            List<TarefaPrevista> tarefas = new ArrayList<>();
+            return Optional.of(projetoRepository.save(projeto));
+           /* List<TarefaPrevista> tarefas = new ArrayList<>();
             projeto.getTarefas().forEach(tarefa -> { //percorrer as tarefas daquele projeto
                 Optional<TarefaPrevista> optionalTarefa = tarefaPrevistaRepository.findByNome(tarefa.getNome()); //procurar por id
                 if (optionalTarefa.isPresent()) {
@@ -40,6 +41,7 @@ public class ProjetoServiceImpl implements ProjetoService {
             });
             projeto.setTarefas(tarefas);
             return Optional.of(projetoRepository.save(projeto));
+                        */
         }
         return Optional.empty();
     }

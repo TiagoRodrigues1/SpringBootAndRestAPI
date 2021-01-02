@@ -13,14 +13,15 @@ public class ConverterProjetoParaDTO implements Conversor<ProjetoRespondeDTO, Pr
     public ProjetoRespondeDTO converter (Projeto projeto) {
         ProjetoRespondeDTO respondeDTO = new ProjetoRespondeDTO();
         respondeDTO.setNome(projeto.getNome());
-        respondeDTO.setCliente(projeto.getCliente());
-        respondeDTO.setTarefas(projeto.getTarefas().stream().map(tarefa -> {
+        //respondeDTO.setCliente(projeto.getCliente());
+        /*respondeDTO.setTarefas(projeto.getTarefas().stream().map(tarefa -> {
             TarefaPrevistaCreateDTO previstaCreateDTO = new TarefaPrevistaCreateDTO();
             previstaCreateDTO.setNome(tarefa.getNome());
             previstaCreateDTO.setProjeto(tarefa.getProjeto());
             previstaCreateDTO.setEmpregado(tarefa.getEmpregado());
             return previstaCreateDTO;
         }).collect(Collectors.toList()));
+         */
         return respondeDTO;
     }
 }
