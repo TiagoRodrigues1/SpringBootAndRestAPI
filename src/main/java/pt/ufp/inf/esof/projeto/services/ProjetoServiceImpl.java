@@ -16,12 +16,10 @@ import java.util.Optional;
 @Service
 public class ProjetoServiceImpl implements ProjetoService {
     private final ProjetoRepository projetoRepository;
-    private final TarefaPrevistaRepository tarefaPrevistaRepository;
 
     @Autowired
-    public ProjetoServiceImpl(ProjetoRepository projetoRepository, TarefaPrevistaRepository tarefaPrevistaRepository) {
+    public ProjetoServiceImpl(ProjetoRepository projetoRepository) {
         this.projetoRepository = projetoRepository;
-        this.tarefaPrevistaRepository = tarefaPrevistaRepository;
     }
 
     @Override
@@ -52,7 +50,8 @@ public class ProjetoServiceImpl implements ProjetoService {
         if (optionalProjeto.isPresent()) {
             Projeto projeto = optionalProjeto.get();
             projeto.adicionaTarefa(tarefa);
-            return Optional.of(projetoRepository.save(projeto));
+            projetoRepository.save(projeto);
+            return Optional.of(projeto);
         }
         return Optional.empty();
     }

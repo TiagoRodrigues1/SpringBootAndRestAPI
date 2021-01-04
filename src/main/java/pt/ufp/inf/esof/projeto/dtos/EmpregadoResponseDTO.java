@@ -11,7 +11,7 @@ import java.util.List;
 public class EmpregadoResponseDTO {
     private String email;
     private Empregado.Cargo cargo;
-    //private List<TarefaPrevistaCreateDTO> tarefas = new ArrayList<>();
+    private List<TarefaPrevistaCreateDTO> tarefas = new ArrayList<>();
     private Projeto projeto;
     private String nome;
 

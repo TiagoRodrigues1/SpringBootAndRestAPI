@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface TarefaService {
 
     Optional<TarefaPrevista> criarTarefa (TarefaPrevista tarefaPrevista);
-    Optional<TarefaPrevista> adicionaEmpregado(Long id, Empregado empregado);
+    Optional<TarefaPrevista> adicionaEmpregado(Long id, String email);
 }

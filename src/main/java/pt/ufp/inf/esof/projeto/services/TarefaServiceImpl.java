@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pt.ufp.inf.esof.projeto.modelos.Empregado;
 import pt.ufp.inf.esof.projeto.modelos.TarefaEfetiva;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
+import pt.ufp.inf.esof.projeto.repositories.EmpregadoRepository;
 import pt.ufp.inf.esof.projeto.repositories.TarefaEfetivaRepository;
 import pt.ufp.inf.esof.projeto.repositories.TarefaPrevistaRepository;
 
@@ -17,11 +18,13 @@ public class TarefaServiceImpl implements TarefaService {
 
     private final TarefaPrevistaRepository tarefaPrevistaRepository;
     private final TarefaEfetivaRepository tarefaEfetivaRepository;
+    private final EmpregadoRepository empregadoRepository;
 
     @Autowired
-    public TarefaServiceImpl (TarefaPrevistaRepository tarefaPrevistaRepository, TarefaEfetivaRepository tarefaEfetivaRepository) {
+    public TarefaServiceImpl (TarefaPrevistaRepository tarefaPrevistaRepository, TarefaEfetivaRepository tarefaEfetivaRepository, EmpregadoRepository empregadoRepository) {
         this.tarefaPrevistaRepository = tarefaPrevistaRepository;
         this.tarefaEfetivaRepository = tarefaEfetivaRepository;
+        this.empregadoRepository = empregadoRepository;
     }
 
     @Override
@@ -44,13 +47,16 @@ public class TarefaServiceImpl implements TarefaService {
         return Optional.empty();
     }
 
-    @Override
-    public Optional<TarefaPrevista> adicionaEmpregado(Long id, Empregado empregado) { // acessa o repositorio do empregado
+    @Override //ao associar devemos usar sempre um empregado que já exista na BD?
+    public Optional<TarefaPrevista> adicionaEmpregado(Long id, String email) { // acessa o repositorio do empregado
         Optional<TarefaPrevista> optionalTarefa = this.tarefaPrevistaRepository.findById(id);
-        if(optionalTarefa.isPresent()) {
-            TarefaPrevista tarefa = optionalTarefa.get();
-            empregado.adicionaTarefa(tarefa);
-            return Optional.of(tarefaPrevistaRepository.save(tarefa));
+        Optional<Empregado> empregado = this.empregadoRepository.findByEmail(email);
+        if(empregado.isPresent()) {
+            if (optionalTarefa.isPresent()) {
+                TarefaPrevista tarefa = optionalTarefa.get();
+                empregado.get().adicionaTarefa(tarefa);
+                return Optional.of(tarefaPrevistaRepository.save(tarefa));
+            }
         }
         return Optional.empty();
     }
