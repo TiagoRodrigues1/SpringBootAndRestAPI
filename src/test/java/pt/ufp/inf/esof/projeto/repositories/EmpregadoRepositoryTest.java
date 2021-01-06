@@ -31,16 +31,19 @@ class EmpregadoRepositoryTest {
         tarefaPrevista1.setNome("Tarefa2");
 
         TarefaEfetiva tarefaEfetiva = new TarefaEfetiva();
-        tarefaEfetiva.registarTempoTrabalhado(10);
+        tarefaEfetiva.registarTempo(10,100);
         tarefaEfetiva.setNome("TarefaEfetiva");
-        tarefaEfetiva.setTarefaPrevista(tarefaPrevista);
+
+        //tarefaPrevista.setTarefaEfetiva(tarefaEfetiva);
+        //tarefaEfetiva.setTarefaPrevista(tarefaPrevista1);
+
+        tarefaPrevista.adicionaTarefa(tarefaEfetiva);
 
         empregado.adicionaTarefa(tarefaPrevista);
         empregado.adicionaTarefa(tarefaPrevista1);
-        tarefaPrevista.setTarefaEfetiva(tarefaEfetiva);
 
 
-
+        tarefaEfetivaRepository.save(tarefaEfetiva);
         assertEquals(2,empregado.getTarefa().size());
         empregadoRepository.save(empregado);
         tarefaPrevistaRepository.save(tarefaPrevista);
@@ -55,6 +58,5 @@ class EmpregadoRepositoryTest {
         assertTrue(tarefaPrevistaRepository.findByNome(tarefaPrevista.getNome()).isPresent());
         assertTrue(tarefaPrevistaRepository.findByNome(tarefaPrevista1.getNome()).isPresent());
         assertTrue(tarefaEfetivaRepository.findByNome(tarefaEfetiva.getNome()).isPresent());
-
     }
 }

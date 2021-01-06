@@ -33,6 +33,9 @@ class ProjetoRepositoryTest {
         tarefaPrevista.setTarefaEfetiva(tarefaEfetiva);
         p.adicionaTarefa(tarefaPrevista);
 
+        tarefaEfetivaRepository.save(tarefaEfetiva);
+        tarefaPrevistaRepository.save(tarefaPrevista);
+
         projetoRepository.save(p);
 
         assertEquals(1,projetoRepository.count());

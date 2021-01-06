@@ -47,7 +47,7 @@ public class Inicializacao implements ApplicationListener<ContextRefreshedEvent>
         tarefaEfetiva.setNome("TarefaEfetive");
         tarefaEfetiva.setProgresso(10);
 
-        tarefaPrevista.setTarefaEfetiva(tarefaEfetiva);
+        //tarefaPrevista.setTarefaEfetiva(tarefaEfetiva);
 
         Empregado empregado = new Empregado();
         empregado.setEmail("teste@teste.pt");
@@ -65,11 +65,9 @@ public class Inicializacao implements ApplicationListener<ContextRefreshedEvent>
 
         this.empregadoRepository.save(empregado);
         this.empregadoRepository.save(empregado1);
+        this.tarefaEfetivaRepository.save(tarefaEfetiva);
         this.tarefaPrevistaRepository.save(tarefaPrevista);
         this.tarefaPrevistaRepository.save(tarefaPrevista1);
-        this.tarefaEfetivaRepository.save(tarefaEfetiva);
-
-
 
         Cliente cliente = new Cliente();
         cliente.setNome("Tiago");
@@ -83,10 +81,5 @@ public class Inicializacao implements ApplicationListener<ContextRefreshedEvent>
         projeto.adicionaTarefa(tarefaPrevista1);
 
         this.projetoRepository.save(projeto);
-
-
     }
-
-
-
 }

@@ -27,7 +27,10 @@ public class TarefaPrevista {
         return 0F;
     }
 
-
+    public void adicionaTarefa(TarefaEfetiva tarefaEfetiva) {
+        setTarefaEfetiva(tarefaEfetiva);
+        tarefaEfetiva.setTarefaPrevista(this);
+    }
 
 
 }
