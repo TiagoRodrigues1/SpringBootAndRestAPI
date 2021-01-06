@@ -37,7 +37,7 @@ class EmpregadoRepositoryTest {
 
         empregado.adicionaTarefa(tarefaPrevista);
         empregado.adicionaTarefa(tarefaPrevista1);
-        tarefaPrevista.adicionaTarefa(tarefaEfetiva);
+        tarefaPrevista.setTarefaEfetiva(tarefaEfetiva);
 
 
 

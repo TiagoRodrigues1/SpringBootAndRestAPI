@@ -32,6 +32,8 @@ public class TarefaServiceImpl implements TarefaService {
         Optional<TarefaPrevista> optionalTarefa = tarefaPrevistaRepository.findByNome(tarefaPrevista.getNome());
         if(optionalTarefa.isEmpty()) {
             tarefaPrevistaRepository.save(tarefaPrevista);
+            return Optional.of(tarefaPrevistaRepository.save(tarefaPrevista));
+            /*
             List<TarefaEfetiva> tarefaEfetivas = new ArrayList<>();
             tarefaPrevista.getTarefaEfetivas().forEach(tarefaEfetiva -> {
                 Optional<TarefaEfetiva> optionalTarefaEfetiva = tarefaEfetivaRepository.findByNome(tarefaEfetiva.getNome());
@@ -42,7 +44,8 @@ public class TarefaServiceImpl implements TarefaService {
                 }
             });
             tarefaPrevista.setTarefaEfetivas(tarefaEfetivas);
-            return Optional.of(tarefaPrevistaRepository.save(tarefaPrevista));
+
+             */
         }
         return Optional.empty();
     }

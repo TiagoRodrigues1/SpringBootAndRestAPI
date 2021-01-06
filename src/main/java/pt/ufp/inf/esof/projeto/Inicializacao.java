@@ -47,7 +47,7 @@ public class Inicializacao implements ApplicationListener<ContextRefreshedEvent>
         tarefaEfetiva.setNome("TarefaEfetive");
         tarefaEfetiva.setProgresso(10);
 
-        tarefaPrevista.adicionaTarefa(tarefaEfetiva);
+        tarefaPrevista.setTarefaEfetiva(tarefaEfetiva);
 
         Empregado empregado = new Empregado();
         empregado.setEmail("teste@teste.pt");

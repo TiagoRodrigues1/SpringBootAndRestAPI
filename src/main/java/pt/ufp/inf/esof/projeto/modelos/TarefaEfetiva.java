@@ -26,12 +26,13 @@ public class TarefaEfetiva {
         this.concluida = true;
     }
 
-    /*
-    public float registarTem() {
-        //if (this.getDiaInicio() != null || this.getDiaFim() != null) {
-        long minutos = 0;
-        minutos = MINUTES.between(this.getDiaInicio(), this.getDiaFim());
-        return (float) minutos / 60;
+    public float calcularTempoPrevisto() {
+        float x = 0;
+        x = (this.getPeriodoTempoTrabalhado() * 100) / this.getProgresso(); //calcular o tempo previsto tendo em conta o progresso e tempo trabalhado
+        if(x > this.tarefaPrevista.getTempoPrevistoConlusao()) {
+            this.tarefaPrevista.setTempoPrevistoConlusao(x);
+            return x;
+        }
+        return this.getTarefaPrevista().getTempoPrevistoConlusao();
     }
-    */
 }

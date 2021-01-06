@@ -17,19 +17,17 @@ public class TarefaPrevista {
     private String nome;
     private Projeto projeto;
     private Empregado empregado;
-    private List<TarefaEfetiva> tarefaEfetivas = new ArrayList<>();
+    private TarefaEfetiva tarefaEfetiva;
     private float tempoPrevistoConlusao;
 
     public float calcularCustoTarefa() {
-        return this.getEmpregado().getCargo().valorHora;
+        if(this.getEmpregado() != null) {
+            return this.getEmpregado().getCargo().valorHora;
+        }
+        return 0F;
     }
 
-    public void adicionaTarefa(TarefaEfetiva tarefaEfetiva) {
-        if(!this.tarefaEfetivas.contains(tarefaEfetiva)) {
-            this.tarefaEfetivas.add(tarefaEfetiva);
-            tarefaEfetiva.setTarefaPrevista(this);
-        }
-    }
+
 
 
 }

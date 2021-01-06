@@ -23,9 +23,9 @@ class ProjetoTest {
         Empregado emp = new Empregado();
         emp.setCargo(Empregado.Cargo.ANALISTA_SENIOR);
         t2.setEmpregado(emp);
-        t.adicionaTarefa(e);
-        t2.adicionaTarefa(e2);
-        t.adicionaTarefa(e1);
+        t.setTarefaEfetiva(e);
+        t2.setTarefaEfetiva(e2);
+        t.setTarefaEfetiva(e1);
         p.adicionaTarefa(t);
         p.adicionaTarefa(t2);
         System.out.println(p.calcularTempo());

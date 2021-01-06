@@ -30,12 +30,11 @@ class ProjetoRepositoryTest {
         tarefaEfetiva.setNome("TarefaEfetive");
         tarefaEfetiva.setPeriodoTempoTrabalhado(10);
         tarefaEfetiva.setProgresso(50);
-        tarefaPrevista.adicionaTarefa(tarefaEfetiva);
+        tarefaPrevista.setTarefaEfetiva(tarefaEfetiva);
         p.adicionaTarefa(tarefaPrevista);
 
         projetoRepository.save(p);
 
-        assertEquals(1,tarefaPrevista.getTarefaEfetivas().size());
         assertEquals(1,projetoRepository.count());
         assertEquals(1,tarefaPrevistaRepository.count());
         assertTrue(tarefaPrevistaRepository.findById(tarefaPrevista.getId()).isPresent());

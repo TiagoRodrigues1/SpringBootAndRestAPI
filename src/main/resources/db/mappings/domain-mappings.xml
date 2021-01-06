@@ -43,7 +43,7 @@
             </basic>
             <many-to-one name="projeto"/>
             <many-to-one name="empregado"/>
-            <one-to-many name="tarefaEfetivas" mapped-by="tarefaPrevista"><cascade><cascade-all/></cascade></one-to-many>
+            <one-to-one name="tarefaEfetiva" mapped-by="tarefaPrevista"><cascade><cascade-all/></cascade></one-to-one>
         </attributes>
     </entity>
     <entity class="TarefaEfetiva">
