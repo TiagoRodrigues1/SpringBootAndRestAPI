@@ -41,6 +41,12 @@ public class EmpregadoServiceImpl implements EmpregadoService {
 
              */
         }
+
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<Empregado> findById(Long id) {
+        return empregadoRepository.findById(id);
     }
 }

@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface EmpregadoService {
     Optional<Empregado> criarEmpregado (Empregado empregado);
+    Optional<Empregado> findById(Long id);
 }

@@ -2,7 +2,6 @@ package pt.ufp.inf.esof.projeto.modelos;
 
 
 import org.junit.jupiter.api.Test;
-import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProjetoTest {
@@ -14,49 +13,66 @@ class ProjetoTest {
         TarefaPrevista t2 = new TarefaPrevista();
         TarefaEfetiva e = new TarefaEfetiva();
         TarefaEfetiva e1 = new TarefaEfetiva();
-        TarefaEfetiva e2 = new TarefaEfetiva();
-        e.registarTempoTrabalhado(10);
-        e1.registarTempoTrabalhado(15);
-        e2.registarTempoTrabalhado(20);
+
+        e.registarTempo(10,5); //Realizou 5% da Tarefa em 10Hrs
+        e1.registarTempo(5,100);//Realizou 100% da Tarefa em 5hrs quando estaria programado para 20hrs
+
         t.setTempoPrevistoConlusao(10);
         t2.setTempoPrevistoConlusao(20);
+
         Empregado emp = new Empregado();
         emp.setCargo(Empregado.Cargo.ANALISTA_SENIOR);
+        Empregado empregado = new Empregado();
+        empregado.setCargo(Empregado.Cargo.DESENVOLVEDOR_JUNIOR);
+
+        t.setEmpregado(empregado);
         t2.setEmpregado(emp);
-        t.setTarefaEfetiva(e);
-        t2.setTarefaEfetiva(e2);
-        t.setTarefaEfetiva(e1);
+
+        t.adicionaTarefa(e);
+        t2.adicionaTarefa(e1);
+
         p.adicionaTarefa(t);
         p.adicionaTarefa(t2);
-        System.out.println(p.calcularTempo());
-        System.out.println(p.calcularCusto());
-        assertEquals(30,p.calcularTempo());
 
-        //assertEquals(2375,p.calcularTempo().toHours());
-        /*
-        System.out.println(p.calcularTempo().toDaysPart());
-        System.out.println(p.calcularTempo().toHoursPart());
-        System.out.println(p.calcularTempo().toMinutesPart());
-        */
+        //System.out.println(p.calcularTempo());
+
+        assertEquals(220,p.calcularTempo());
+
+        //assertEquals(2375,p.calcularTempo());
+
     }
 
     @Test
     void calcularCusto() {
         Projeto p = new Projeto();
-        TarefaPrevista t2 = new TarefaPrevista();
         TarefaPrevista t = new TarefaPrevista();
+        TarefaPrevista t2 = new TarefaPrevista();
+        TarefaEfetiva e = new TarefaEfetiva();
+        TarefaEfetiva e1 = new TarefaEfetiva();
+
+        e.registarTempo(10,5); //Realizou 5% da Tarefa em 10Hrs
+        e1.registarTempo(5,100);//Realizou 100% da Tarefa em 5hrs quando estaria programado para 20hrs
+
+        t.setTempoPrevistoConlusao(10);
         t2.setTempoPrevistoConlusao(20);
 
-        Empregado empregado = new Empregado();
-        empregado.setCargo(Empregado.Cargo.DESENVOLVERDOR_JUNIOR);
-        t.setEmpregado(empregado);
         Empregado emp = new Empregado();
         emp.setCargo(Empregado.Cargo.ANALISTA_SENIOR);
+        Empregado empregado = new Empregado();
+        empregado.setCargo(Empregado.Cargo.DESENVOLVEDOR_JUNIOR);
+
+        t.setEmpregado(empregado);
         t2.setEmpregado(emp);
-        t.setTempoPrevistoConlusao(10);
+
+        t.adicionaTarefa(e);
+        t2.adicionaTarefa(e1);
+
         p.adicionaTarefa(t);
         p.adicionaTarefa(t2);
-        assertEquals(1700,p.calcularCusto());
+
+        assertEquals(9600,p.calcularCusto());
+
+
 
     }
 }
