@@ -1,5 +1,7 @@
 package pt.ufp.inf.esof.projeto.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.Optional;
 @RequestMapping("/empregado")
 
 public class EmpregadoController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final EmpregadoService empregadoService;
     private final ConverterEmpregadoParaDTO converterEmpregadoParaDTO = new ConverterEmpregadoParaDTO();
 
@@ -22,11 +25,14 @@ public class EmpregadoController {
 
     @PostMapping
     public ResponseEntity<EmpregadoResponseDTO> criarEmpregado (@RequestBody EmpregadoCreateDTO empregado) {
+        this.logger.info("Post - criarEmpregado");
         Optional <Empregado> optionalEmpregado = empregadoService.criarEmpregado(empregado.converter());
         return optionalEmpregado.map(value -> ResponseEntity.ok(converterEmpregadoParaDTO.converter(value))).orElseGet(() -> ResponseEntity.badRequest().build());
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<EmpregadoResponseDTO> getEmpregadoById(@PathVariable Long id) {
+        this.logger.info("Get - getEmpregadoById");
         Optional<Empregado> optionalEmpregado = empregadoService.findById(id);
         return optionalEmpregado.map(empregado -> {
             EmpregadoResponseDTO empregadoResponseDTO=converterEmpregadoParaDTO.converter(empregado);

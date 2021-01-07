@@ -1,5 +1,7 @@
 package pt.ufp.inf.esof.projeto.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ufp.inf.esof.projeto.modelos.Empregado;
@@ -16,6 +18,7 @@ import java.util.Optional;
 @Service
 public class TarefaServiceImpl implements TarefaService {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final TarefaPrevistaRepository tarefaPrevistaRepository;
     private final TarefaEfetivaRepository tarefaEfetivaRepository;
     private final EmpregadoRepository empregadoRepository;
@@ -29,8 +32,10 @@ public class TarefaServiceImpl implements TarefaService {
 
     @Override
     public Optional<TarefaPrevista> criarTarefa (TarefaPrevista tarefaPrevista) {
+        this.logger.info("A criar nova Tarefa" + tarefaPrevista.getNome());
         Optional<TarefaPrevista> optionalTarefa = tarefaPrevistaRepository.findByNome(tarefaPrevista.getNome());
         if(optionalTarefa.isEmpty()) {
+            this.logger.info("Tarefa criado com sucesso");
             tarefaPrevistaRepository.save(tarefaPrevista);
             return Optional.of(tarefaPrevistaRepository.save(tarefaPrevista));
             /*
@@ -44,27 +49,26 @@ public class TarefaServiceImpl implements TarefaService {
                 }
             });
             tarefaPrevista.setTarefaEfetivas(tarefaEfetivas);
-
-             */
+            */
         }
+        this.logger.info("Tarefa já Existia");
         return Optional.empty();
     }
 
-    @Override //ao associar devemos usar sempre um empregado que já exista na BD?
+    @Override
     public Optional<TarefaPrevista> adicionaEmpregado(Long id, String email) { // acessa o repositorio do empregado
+        this.logger.info("A adicionar Empregado com email" + email + "a Projeto");
         Optional<TarefaPrevista> optionalTarefa = this.tarefaPrevistaRepository.findById(id);
         Optional<Empregado> empregado = this.empregadoRepository.findByEmail(email);
         if(empregado.isPresent()) {
             if (optionalTarefa.isPresent()) {
+                this.logger.info("Empregado adicionado com sucesso");
                 TarefaPrevista tarefa = optionalTarefa.get();
                 empregado.get().adicionaTarefa(tarefa);
                 return Optional.of(tarefaPrevistaRepository.save(tarefa));
             }
         }
+        this.logger.info("Adição de empregado a Tarefa Falhou");
         return Optional.empty();
     }
-
-
-
-
 }

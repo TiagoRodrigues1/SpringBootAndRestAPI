@@ -14,7 +14,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(EmpregadoController.class)
@@ -42,5 +42,15 @@ class EmpregadoControllerTest {
         String empregadoExistenteAsString = new ObjectMapper().writeValueAsString(empregadoExistente);
         mockMvc.perform(post("/empregado").content(empregadoExistenteAsString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest()); //testa se é possivel criar empregado com mesmo email
 
+    }
+
+    @Test
+    void getEmpregadoById() throws Exception {
+        Empregado empregado = new Empregado();
+        when(empregadoService.findById(1L)).thenReturn(Optional.of(empregado));
+        String httpResponse = mockMvc.perform(get("/empregado/1")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertNotNull(httpResponse);
+
+        mockMvc.perform(get("/empregado/2")).andExpect(status().isNotFound());
     }
 }

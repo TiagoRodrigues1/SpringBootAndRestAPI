@@ -34,7 +34,12 @@ class EmpregadoServiceImplTest {
 
         when(empregadoRepository.findByEmail(empregado.getEmail())).thenReturn(Optional.of(empregado));
         assertTrue(empregadoService.criarEmpregado(empregado).isEmpty());
+    }
 
-
+    @Test
+    void findById() {
+        when(empregadoRepository.findById(1L)).thenReturn(Optional.of(new Empregado()));
+        assertTrue(empregadoService.findById(1L).isPresent());
+        assertTrue(empregadoService.findById(2L).isEmpty());
     }
 }
