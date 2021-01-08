@@ -10,8 +10,9 @@ import java.util.List;
 @Data
 public class TarefaPrevistaResponseDTO {
     private String nome;
+    private TarefasEfetivasCreateDTO tarefasEfetivasCreateDTO;
+    private float tempoPrevistoConlusao;
     //private Projeto projeto;
     //private Empregado empregado;
-    //private List<TarefasEfetivasCreateDTO> tarefaEfetivas = new ArrayList<>();
-    private float tempoPrevistoConlusao;
+
 }

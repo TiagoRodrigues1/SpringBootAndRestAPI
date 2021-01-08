@@ -11,22 +11,20 @@ import pt.ufp.inf.esof.projeto.repositories.EmpregadoRepository;
 import pt.ufp.inf.esof.projeto.repositories.TarefaEfetivaRepository;
 import pt.ufp.inf.esof.projeto.repositories.TarefaPrevistaRepository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TarefaServiceImpl implements TarefaService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final TarefaPrevistaRepository tarefaPrevistaRepository;
-    private final TarefaEfetivaRepository tarefaEfetivaRepository;
     private final EmpregadoRepository empregadoRepository;
+    private final TarefaEfetivaRepository tarefaEfetivaRepository;
 
     @Autowired
-    public TarefaServiceImpl (TarefaPrevistaRepository tarefaPrevistaRepository, TarefaEfetivaRepository tarefaEfetivaRepository, EmpregadoRepository empregadoRepository) {
+    public TarefaServiceImpl (TarefaPrevistaRepository tarefaPrevistaRepository,EmpregadoRepository empregadoRepository,TarefaEfetivaRepository tarefaEfetivaRepository) {
         this.tarefaPrevistaRepository = tarefaPrevistaRepository;
-        this.tarefaEfetivaRepository = tarefaEfetivaRepository;
         this.empregadoRepository = empregadoRepository;
+        this.tarefaEfetivaRepository = tarefaEfetivaRepository;
     }
 
     @Override
@@ -35,20 +33,9 @@ public class TarefaServiceImpl implements TarefaService {
         Optional<TarefaPrevista> optionalTarefa = tarefaPrevistaRepository.findByNome(tarefaPrevista.getNome());
         if(optionalTarefa.isEmpty()) {
             this.logger.info("Tarefa criado com sucesso");
+            tarefaEfetivaRepository.save(tarefaPrevista.getTarefaEfetiva());
             tarefaPrevistaRepository.save(tarefaPrevista);
             return Optional.of(tarefaPrevistaRepository.save(tarefaPrevista));
-            /*
-            List<TarefaEfetiva> tarefaEfetivas = new ArrayList<>();
-            tarefaPrevista.getTarefaEfetivas().forEach(tarefaEfetiva -> {
-                Optional<TarefaEfetiva> optionalTarefaEfetiva = tarefaEfetivaRepository.findByNome(tarefaEfetiva.getNome());
-                if(optionalTarefaEfetiva.isPresent()) {
-                    tarefaEfetivas.add(tarefaEfetiva);
-                    tarefaEfetiva.setTarefaPrevista(tarefaPrevista);
-                    tarefaEfetivaRepository.save(optionalTarefaEfetiva.get());
-                }
-            });
-            tarefaPrevista.setTarefaEfetivas(tarefaEfetivas);
-            */
         }
         this.logger.info("Tarefa já Existia");
         return Optional.empty();
