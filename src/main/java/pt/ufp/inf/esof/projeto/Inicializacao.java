@@ -81,5 +81,10 @@ public class Inicializacao implements ApplicationListener<ContextRefreshedEvent>
         projeto.adicionaTarefa(tarefaPrevista1);
 
         this.projetoRepository.save(projeto);
+
+        Projeto projeto1 = new Projeto();
+        projeto.setNome("Plataforma");
+        this.projetoRepository.save(projeto1);
+
     }
 }

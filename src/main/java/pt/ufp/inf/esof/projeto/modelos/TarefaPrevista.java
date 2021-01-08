@@ -5,12 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
 public class TarefaPrevista {
     private Long id;
@@ -31,6 +27,5 @@ public class TarefaPrevista {
         setTarefaEfetiva(tarefaEfetiva);
         tarefaEfetiva.setTarefaPrevista(this);
     }
-
 
 }

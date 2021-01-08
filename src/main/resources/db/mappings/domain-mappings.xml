@@ -75,7 +75,7 @@
             <basic name="nome">
                 <column name="nome"/>
             </basic>
-            <many-to-one name="cliente"/>
+            <many-to-one name="cliente"><cascade><cascade-all/></cascade></many-to-one>
             <one-to-many name="tarefas" mapped-by="projeto"><cascade><cascade-all/></cascade></one-to-many>
         </attributes>
     </entity>

@@ -15,9 +15,7 @@ import java.util.List;
 public class Projeto {
     private Long id;
     private String nome;
-    //@JsonIgnore
     private List<TarefaPrevista> tarefas = new ArrayList<>();
-    //@JsonIgnore
     private Cliente cliente;
 
     public void adicionaTarefa(TarefaPrevista tarefa) {
@@ -28,20 +26,25 @@ public class Projeto {
     }
 
     public float calcularTempo() {
-        float tempoConclusao = 0;
-        for(TarefaPrevista t : tarefas) {
-            tempoConclusao += t.getTempoPrevistoConlusao();
+        if(!this.tarefas.isEmpty()) {
+            float tempoConclusao = 0;
+            for (TarefaPrevista t : tarefas) {
+                tempoConclusao += t.getTarefaEfetiva().calcularTempoPrevisto();
+            }
+            return tempoConclusao;
         }
-        return tempoConclusao;
+        return 0F;
     }
 
     public float calcularCusto() {
-        float custo = 0F;
-        if (!tarefas.isEmpty()) {
+        if(!this.tarefas.isEmpty()) {
+            float custo = 0F;
             for (TarefaPrevista t : tarefas) {
+                t.getTarefaEfetiva().calcularTempoPrevisto();
                 custo += t.calcularCustoTarefa() * t.getTempoPrevistoConlusao(); //Custo de Hora
             }
+            return custo;
         }
-        return custo;
+        return 0F;
     }
 }

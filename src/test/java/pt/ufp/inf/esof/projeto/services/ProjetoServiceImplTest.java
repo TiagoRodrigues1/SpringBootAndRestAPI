@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import pt.ufp.inf.esof.projeto.modelos.Cliente;
 import pt.ufp.inf.esof.projeto.modelos.Empregado;
 import pt.ufp.inf.esof.projeto.modelos.Projeto;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
@@ -98,5 +99,20 @@ class ProjetoServiceImplTest {
         //assertEquals(projeto.calcularTempo(),projetoService.getProjetoByIdTempo(1L));
 
 
+    }
+
+    @Test
+    void adicionaCliente() {
+        Cliente cliente = new Cliente();
+        cliente.setUsername("Pedro123");
+        cliente.setNome("Pedro");
+        cliente.setPassword("1234");
+
+        Projeto projeto = new Projeto();
+        projeto.setNome("Plataforma");
+
+        when(projetoRepository.findById(1L)).thenReturn(Optional.of(projeto));
+        assertTrue(projetoService.adicionaCliente(1L,cliente).isPresent());
+        assertTrue(projetoService.adicionaCliente(2L,cliente).isEmpty());
     }
 }

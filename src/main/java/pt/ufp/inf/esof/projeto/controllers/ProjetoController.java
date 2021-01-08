@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import pt.ufp.inf.esof.projeto.dtos.ProjetoRespondeDTO;
-import pt.ufp.inf.esof.projeto.dtos.TarefaPrevistaCreateDTO;
+import pt.ufp.inf.esof.projeto.dtos.*;
 import pt.ufp.inf.esof.projeto.dtos.conversores.ConverterProjetoParaDTO;
-import pt.ufp.inf.esof.projeto.dtos.ProjetoCreateDTO;
+import pt.ufp.inf.esof.projeto.modelos.Cliente;
 import pt.ufp.inf.esof.projeto.modelos.Projeto;
 import pt.ufp.inf.esof.projeto.services.ProjetoService;
 
@@ -60,4 +59,12 @@ public class ProjetoController {
         Optional<Projeto> optionalTarefaPrevista = projetoService.adicionaTarefa(id,tarefa.converter());
         return optionalTarefaPrevista.map(projeto -> ResponseEntity.ok(converterProjetoParaDTO.converter(projeto))).orElseGet(() -> ResponseEntity.badRequest().build());
     }
+
+    @PatchMapping("/cliente/{id}")
+    public ResponseEntity<ProjetoRespondeDTO> adicionaCliente(@PathVariable Long id, @RequestBody ClienteCreateDTO clienteCreateDTO) {
+        this.logger.info("Patch - adicionaCliente");
+        Optional<Projeto> optionalProjeto = projetoService.adicionaCliente(id,clienteCreateDTO.converter());
+        return optionalProjeto.map(projeto -> ResponseEntity.ok(converterProjetoParaDTO.converter(projeto))).orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import pt.ufp.inf.esof.projeto.dtos.EmpregadoCreateDTO;
 import pt.ufp.inf.esof.projeto.dtos.TarefaPrevistaCreateDTO;
 import pt.ufp.inf.esof.projeto.dtos.TarefaPrevistaResponseDTO;
 import pt.ufp.inf.esof.projeto.dtos.conversores.ConverterTarefaParaDTO;
@@ -39,4 +38,5 @@ public class TarefaController {
         Optional<TarefaPrevista> optionalTarefaPrevista = tarefaService.adicionaEmpregado(id,email);
         return optionalTarefaPrevista.map(tarefaPrevista -> ResponseEntity.ok(converterTarefaParaDTO.converter(tarefaPrevista))).orElseGet(() -> ResponseEntity.badRequest().build());
     }
+
 }

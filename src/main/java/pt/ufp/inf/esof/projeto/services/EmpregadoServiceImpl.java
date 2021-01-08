@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import pt.ufp.inf.esof.projeto.modelos.Empregado;
 import pt.ufp.inf.esof.projeto.repositories.EmpregadoRepository;
-import pt.ufp.inf.esof.projeto.repositories.TarefaPrevistaRepository;
-
 
 import java.util.Optional;
 
@@ -16,12 +14,11 @@ import java.util.Optional;
 public class EmpregadoServiceImpl implements EmpregadoService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final EmpregadoRepository empregadoRepository;
-    private final TarefaPrevistaRepository tarefaPrevistaRepository;
+
 
     @Autowired
-    public EmpregadoServiceImpl(EmpregadoRepository empregadoRepository, TarefaPrevistaRepository tarefaPrevistaRepository) {
+    public EmpregadoServiceImpl(EmpregadoRepository empregadoRepository) {
         this.empregadoRepository = empregadoRepository;
-        this.tarefaPrevistaRepository = tarefaPrevistaRepository;
     }
 
     @Override
@@ -55,4 +52,5 @@ public class EmpregadoServiceImpl implements EmpregadoService {
         this.logger.info("A procurar Empregado com id:" + id);
         return empregadoRepository.findById(id);
     }
+
 }

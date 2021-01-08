@@ -2,6 +2,7 @@ package pt.ufp.inf.esof.projeto.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +16,11 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/empregado")
-
 public class EmpregadoController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final EmpregadoService empregadoService;
     private final ConverterEmpregadoParaDTO converterEmpregadoParaDTO = new ConverterEmpregadoParaDTO();
-
+    @Autowired
     public EmpregadoController (EmpregadoService empregadoService) {this.empregadoService = empregadoService;}
 
     @PostMapping
@@ -39,4 +39,5 @@ public class EmpregadoController {
             return ResponseEntity.ok(empregadoResponseDTO);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 }

@@ -3,7 +3,6 @@ package pt.ufp.inf.esof.projeto.modelos;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
@@ -29,17 +28,18 @@ public class TarefaEfetiva {
     public void registarTempo(float tempoTrabalhado, float progresso) {
         this.setPeriodoTempoTrabalhado(tempoTrabalhado);
         this.setProgresso(progresso);
-        if (progresso == 100) { //se tiver a feito a tarefa toda
+        if(progresso == 100) { //se tiver a feito a tarefa toda
             this.registarConclusao();
         }
     }
 
     public float calcularTempoPrevisto() {
         float x = (this.getPeriodoTempoTrabalhado() * 100) / this.getProgresso(); //calcular o tempo previsto tendo em conta o progresso e tempo trabalhado
-        if (x > this.tarefaPrevista.getTempoPrevistoConlusao()) {
+        if(x > this.tarefaPrevista.getTempoPrevistoConlusao()) {
             this.tarefaPrevista.setTempoPrevistoConlusao(x);
             return x;
         }
         return this.getTarefaPrevista().getTempoPrevistoConlusao();
     }
+
 }

@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @Service
 public class TarefaServiceImpl implements TarefaService {
-
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final TarefaPrevistaRepository tarefaPrevistaRepository;
     private final TarefaEfetivaRepository tarefaEfetivaRepository;

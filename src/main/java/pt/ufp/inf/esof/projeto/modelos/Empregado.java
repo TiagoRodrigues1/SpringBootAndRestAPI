@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
+//@EqualsAndHashCode(callSuper = true)
 public class Empregado extends Utilizador {
     public enum Cargo {
         DESENVOLVERDOR_JUNIOR(10), ANALISTA_JUNIOR(20),DESENVOLVEDOR_JUNIOR(40),ANALISTA_SENIOR(80);

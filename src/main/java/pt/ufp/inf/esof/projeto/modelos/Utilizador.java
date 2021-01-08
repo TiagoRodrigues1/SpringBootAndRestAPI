@@ -8,6 +8,4 @@ import lombok.Setter;
 
 public class Utilizador {
   public String nome;
-
-    
 }
