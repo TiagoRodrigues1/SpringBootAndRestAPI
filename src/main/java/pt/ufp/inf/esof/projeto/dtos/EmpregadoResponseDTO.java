@@ -10,6 +10,6 @@ import java.util.List;
 public class EmpregadoResponseDTO {
     private String email;
     private Cargo cargo;
-    //private List<TarefaPrevistaCreateDTO> tarefas = new ArrayList<>();
+    private List<TarefaPrevistaCreateDTO> tarefas = new ArrayList<>();
     private String nome;
 }

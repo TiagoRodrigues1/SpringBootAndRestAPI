@@ -1,6 +1,5 @@
 package pt.ufp.inf.esof.projeto.services;
 
-import pt.ufp.inf.esof.projeto.modelos.Empregado;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
 
 import java.util.Optional;

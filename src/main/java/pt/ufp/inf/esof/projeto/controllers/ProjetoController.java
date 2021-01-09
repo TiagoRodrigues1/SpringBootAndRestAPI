@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pt.ufp.inf.esof.projeto.dtos.*;
 import pt.ufp.inf.esof.projeto.dtos.conversores.ConverterProjetoParaDTO;
-import pt.ufp.inf.esof.projeto.modelos.Cliente;
 import pt.ufp.inf.esof.projeto.modelos.Projeto;
 import pt.ufp.inf.esof.projeto.services.ProjetoService;
 
@@ -26,9 +25,9 @@ public class ProjetoController {
     }
 
     @GetMapping("/{id}/valor")
-    public ResponseEntity<Float> getProjetoByIdVal(@PathVariable Long id) {
+    public ResponseEntity<Double> getProjetoByIdVal(@PathVariable Long id) {
         this.logger.info("Get - getProjetoByIdVal");
-        float valor = projetoService.getProjetoByIdVal(id);
+        double valor = projetoService.getProjetoByIdVal(id);
         if(valor != 0F) {
             return ResponseEntity.ok(valor);
         }
@@ -44,10 +43,10 @@ public class ProjetoController {
     }
 
     @GetMapping("/{id}/tempo")
-    public ResponseEntity<Float> getProjetoByIdTempo(@PathVariable Long id) {
+    public ResponseEntity<Double> getProjetoByIdTempo(@PathVariable Long id) {
         this.logger.info("Get - getProjetoByIdTempo");
-        float tempo = projetoService.getProjetoByIdTempo(id);
-        if(tempo != 0F) {
+        double tempo = projetoService.getProjetoByIdTempo(id);
+        if(tempo != 0D) {
             return ResponseEntity.ok(tempo);
         }
         return ResponseEntity.notFound().build();
@@ -68,3 +67,4 @@ public class ProjetoController {
     }
 
 }
+

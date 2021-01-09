@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-public class EmpregadoCreateDTO  implements CreateDTO<Empregado> {
+public class EmpregadoCreateDTO implements CreateDTO<Empregado> {
     private String email;
-    //private List<TarefaPrevistaCreateDTO> tarefas = new ArrayList<>();
+    private List<TarefaPrevistaCreateDTO> tarefas = new ArrayList<>();
     private Empregado.Cargo cargo;
     private String nome;
 
@@ -19,7 +19,7 @@ public class EmpregadoCreateDTO  implements CreateDTO<Empregado> {
         empregado.setEmail(this.email);
         empregado.setCargo(this.cargo);
         empregado.setNome(this.nome);
-        //empregado.setTarefa(tarefas.stream().map(TarefaPrevistaCreateDTO::converter).collect(Collectors.toList()));
+        empregado.setTarefa(tarefas.stream().map(TarefaPrevistaCreateDTO::converter).collect(Collectors.toList()));
         return empregado;
     }
 

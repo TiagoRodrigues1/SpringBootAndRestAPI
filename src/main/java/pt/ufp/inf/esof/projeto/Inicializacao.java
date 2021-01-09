@@ -12,6 +12,8 @@ import pt.ufp.inf.esof.projeto.repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
+
 @Component
 public class Inicializacao implements ApplicationListener<ContextRefreshedEvent> {
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -38,16 +40,17 @@ public class Inicializacao implements ApplicationListener<ContextRefreshedEvent>
 
         TarefaPrevista tarefaPrevista = new TarefaPrevista();
         tarefaPrevista.setNome("TarefaPrevista");
-        tarefaPrevista.setTempoPrevistoConlusao(10);
+        tarefaPrevista.setTempoPrevistoConlusao(Duration.ofHours(10));
         TarefaPrevista tarefaPrevista1 = new TarefaPrevista();
         tarefaPrevista1.setNome("TarefaPrevista1");
-        tarefaPrevista1.setTempoPrevistoConlusao(20);
+        tarefaPrevista1.setTempoPrevistoConlusao(Duration.ofHours(20));
 
         TarefaEfetiva tarefaEfetiva = new TarefaEfetiva();
         tarefaEfetiva.setNome("TarefaEfetive");
         tarefaEfetiva.setProgresso(10);
+        tarefaEfetiva.registarTempo(Duration.ofHours(5),100);
 
-        //tarefaPrevista.setTarefaEfetiva(tarefaEfetiva);
+        tarefaPrevista.adicionaTarefa(tarefaEfetiva);
 
         Empregado empregado = new Empregado();
         empregado.setEmail("teste@teste.pt");
@@ -80,11 +83,12 @@ public class Inicializacao implements ApplicationListener<ContextRefreshedEvent>
         projeto.adicionaTarefa(tarefaPrevista);
         projeto.adicionaTarefa(tarefaPrevista1);
 
-        this.projetoRepository.save(projeto);
 
         Projeto projeto1 = new Projeto();
-        projeto.setNome("Plataforma");
+        projeto1.setNome("Teste");
         this.projetoRepository.save(projeto1);
+        this.projetoRepository.save(projeto);
 
     }
+
 }

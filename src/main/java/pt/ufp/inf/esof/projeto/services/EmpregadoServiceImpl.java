@@ -29,19 +29,6 @@ public class EmpregadoServiceImpl implements EmpregadoService {
             this.logger.info("Empregado criado coom Sucesso");
             empregadoRepository.save(empregado);
             return Optional.of(empregadoRepository.save(empregado));
-            /*List<TarefaPrevista> tarefas = new ArrayList<>();
-            empregado.getTarefa().forEach(tarefa -> {
-                Optional<TarefaPrevista> optionalTarefa = tarefaPrevistaRepository.findByNome(tarefa.getNome());
-                if (optionalTarefa.isPresent()) {
-                    tarefas.add(tarefa);
-                    empregado.adicionaTarefa(tarefa);
-                    tarefaPrevistaRepository.save(optionalTarefa.get());
-                }
-            });
-            empregado.setTarefa(tarefas);
-            return Optional.of(empregadoRepository.save(empregado));
-
-             */
         }
         this.logger.info("Empregado já existia");
         return Optional.empty();

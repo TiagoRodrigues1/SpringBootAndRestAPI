@@ -4,6 +4,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Duration;
+
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true) //se tirar causaria erro de StackOverflow, levaria um ciclo infinito entre a TarefaPrevista e Efetiva então TarefaPrevista não é incluida no EqualsandHashcode
@@ -15,7 +17,7 @@ public class TarefaEfetiva {
     @EqualsAndHashCode.Include
     private float progresso;
     @EqualsAndHashCode.Include
-    private float periodoTempoTrabalhado;
+    private Duration periodoTempoTrabalhado;
     @EqualsAndHashCode.Include
     private boolean concluida;
     private TarefaPrevista tarefaPrevista;
@@ -25,7 +27,7 @@ public class TarefaEfetiva {
         this.concluida = true;
     }
 
-    public void registarTempo(float tempoTrabalhado, float progresso) {
+    public void registarTempo(Duration tempoTrabalhado, float progresso) {
         this.setPeriodoTempoTrabalhado(tempoTrabalhado);
         this.setProgresso(progresso);
         if(progresso == 100) { //se tiver a feito a tarefa toda
@@ -33,13 +35,15 @@ public class TarefaEfetiva {
         }
     }
 
-    public float calcularTempoPrevisto() {
-        float x = (this.getPeriodoTempoTrabalhado() * 100) / this.getProgresso(); //calcular o tempo previsto tendo em conta o progresso e tempo trabalhado
-        if(x > this.tarefaPrevista.getTempoPrevistoConlusao()) {
-            this.tarefaPrevista.setTempoPrevistoConlusao(x);
+    public double calcularTempoPrevisto() {
+        double minutes = this.getPeriodoTempoTrabalhado().toMinutes(); //passar para minutos
+        double x = (minutes * 100) / this.getProgresso(); //calcular o tempo previsto tendo em conta o progresso e tempo trabalhado
+        if(x > this.tarefaPrevista.getTempoPrevistoConlusao().toMinutes()) {
+            Duration duration = Duration.ofMinutes((long)x);
+            this.tarefaPrevista.setTempoPrevistoConlusao(duration);
             return x;
         }
-        return this.getTarefaPrevista().getTempoPrevistoConlusao();
+        return this.tarefaPrevista.getTempoPrevistoConlusao().toMinutes();
     }
 
 }

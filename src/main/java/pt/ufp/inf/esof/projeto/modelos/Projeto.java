@@ -25,26 +25,34 @@ public class Projeto {
         }
     }
 
-    public float calcularTempo() {
+    public double calcularTempo() {
         if(!this.tarefas.isEmpty()) {
-            float tempoConclusao = 0;
+            long tempoConclusao = 0;
             for (TarefaPrevista t : tarefas) {
-                tempoConclusao += t.getTarefaEfetiva().calcularTempoPrevisto();
+                if (t.getTarefaEfetiva() != null) {
+                    tempoConclusao += t.getTarefaEfetiva().calcularTempoPrevisto();
+                }
+                tempoConclusao += t.getTempoPrevistoConlusao().toMinutes();
             }
-            return tempoConclusao;
+            return tempoConclusao / 60.0;
         }
-        return 0F;
+        return 0D;
     }
 
-    public float calcularCusto() {
+    public double calcularCusto() {
         if(!this.tarefas.isEmpty()) {
-            float custo = 0F;
+            double custo = 0D;
             for (TarefaPrevista t : tarefas) {
-                t.getTarefaEfetiva().calcularTempoPrevisto();
-                custo += t.calcularCustoTarefa() * t.getTempoPrevistoConlusao(); //Custo de Hora
+                if (t.getTarefaEfetiva() != null) {
+                    t.getTarefaEfetiva().calcularTempoPrevisto();
+                    double tempo = (t.getTempoPrevistoConlusao().toMinutes()); //Passar o tempo para horas e minutos e não só minutos
+                    custo += t.calcularCustoTarefa() * tempo;
+                }
+                custo += t.calcularCustoTarefa() * t.getTempoPrevistoConlusao().toMinutes();
             }
             return custo;
+
         }
-        return 0F;
+        return 0D;
     }
 }

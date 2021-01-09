@@ -3,7 +3,8 @@ package pt.ufp.inf.esof.projeto.modelos;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+
+import java.time.Duration;
 
 @Getter
 @Setter
@@ -14,11 +15,11 @@ public class TarefaPrevista {
     private Projeto projeto;
     private Empregado empregado;
     private TarefaEfetiva tarefaEfetiva;
-    private float tempoPrevistoConlusao;
+    private Duration tempoPrevistoConlusao;
 
     public float calcularCustoTarefa() {
         if(this.getEmpregado() != null) {
-            return this.getEmpregado().getCargo().valorHora;
+            return this.getEmpregado().getCargo().valorHora / 60F; //valor em minutos
         }
         return 0F;
     }

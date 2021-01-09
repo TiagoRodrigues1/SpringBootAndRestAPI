@@ -10,6 +10,7 @@ import pt.ufp.inf.esof.projeto.modelos.Projeto;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
 import pt.ufp.inf.esof.projeto.repositories.ProjetoRepository;
 
+import java.time.Duration;
 import java.util.Optional;
 
 @Service
@@ -30,18 +31,6 @@ public class ProjetoServiceImpl implements ProjetoService {
             this.logger.info("Projeto criado com sucesso");
             projetoRepository.save(projeto); // salvar o projeto
             return Optional.of(projetoRepository.save(projeto));
-           /* List<TarefaPrevista> tarefas = new ArrayList<>();
-            projeto.getTarefas().forEach(tarefa -> { //percorrer as tarefas daquele projeto
-                Optional<TarefaPrevista> optionalTarefa = tarefaPrevistaRepository.findByNome(tarefa.getNome()); //procurar por id
-                if (optionalTarefa.isPresent()) {
-                    tarefas.add(tarefa);
-                    tarefa.setProjeto(projeto);
-                    tarefaPrevistaRepository.save(optionalTarefa.get()); //salvar na BD
-                }
-            });
-            projeto.setTarefas(tarefas);
-            return Optional.of(projetoRepository.save(projeto));
-                        */
         }
         this.logger.info("Projeto já Existia");
         return Optional.empty();
@@ -63,17 +52,17 @@ public class ProjetoServiceImpl implements ProjetoService {
     }
 
     @Override
-    public float getProjetoByIdVal(Long projetoID) {
+    public double getProjetoByIdVal(Long projetoID) {
         this.logger.info("A calcular valor do projeto com id" + projetoID);
         Optional<Projeto> projeto = projetoRepository.findById(projetoID);
-        return projeto.map(Projeto::calcularCusto).orElse(0F);
+        return projeto.map(Projeto::calcularCusto).orElse(0D);
     }
 
     @Override
-    public float getProjetoByIdTempo(Long projetoID) {
+    public double getProjetoByIdTempo(Long projetoID) {
         this.logger.info("A calcular tempo do projeto com id" + projetoID);
         Optional<Projeto> projeto = projetoRepository.findById(projetoID);
-        return projeto.map(Projeto::calcularTempo).orElse(0F);
+        return projeto.map(Projeto::calcularTempo).orElse(0D);
     }
 
     @Override

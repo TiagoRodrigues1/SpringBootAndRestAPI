@@ -1,18 +1,14 @@
 package pt.ufp.inf.esof.projeto.dtos;
 
 import lombok.Data;
-import pt.ufp.inf.esof.projeto.modelos.Empregado;
-import pt.ufp.inf.esof.projeto.modelos.Projeto;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Duration;
 
 @Data
 public class TarefaPrevistaResponseDTO {
     private String nome;
-    private TarefasEfetivasCreateDTO tarefasEfetivasCreateDTO;
-    private float tempoPrevistoConlusao;
-    //private Projeto projeto;
-    //private Empregado empregado;
-
+    private ProjetoCreateDTO projeto;
+    private EmpregadoCreateDTO empregado;
+    private TarefasEfetivaCreateDTO tarefasEfetivaCreateDTO;
+    private Duration tempoPrevistoConlusao;
 }

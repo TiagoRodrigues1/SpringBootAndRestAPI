@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ufp.inf.esof.projeto.modelos.Empregado;
-import pt.ufp.inf.esof.projeto.modelos.TarefaEfetiva;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
 import pt.ufp.inf.esof.projeto.repositories.EmpregadoRepository;
 import pt.ufp.inf.esof.projeto.repositories.TarefaEfetivaRepository;
@@ -17,14 +16,14 @@ import java.util.Optional;
 public class TarefaServiceImpl implements TarefaService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final TarefaPrevistaRepository tarefaPrevistaRepository;
-    private final EmpregadoRepository empregadoRepository;
     private final TarefaEfetivaRepository tarefaEfetivaRepository;
+    private final EmpregadoRepository empregadoRepository;
 
     @Autowired
-    public TarefaServiceImpl (TarefaPrevistaRepository tarefaPrevistaRepository,EmpregadoRepository empregadoRepository,TarefaEfetivaRepository tarefaEfetivaRepository) {
+    public TarefaServiceImpl (TarefaPrevistaRepository tarefaPrevistaRepository, TarefaEfetivaRepository tarefaEfetivaRepository, EmpregadoRepository empregadoRepository) {
         this.tarefaPrevistaRepository = tarefaPrevistaRepository;
-        this.empregadoRepository = empregadoRepository;
         this.tarefaEfetivaRepository = tarefaEfetivaRepository;
+        this.empregadoRepository = empregadoRepository;
     }
 
     @Override
@@ -33,7 +32,6 @@ public class TarefaServiceImpl implements TarefaService {
         Optional<TarefaPrevista> optionalTarefa = tarefaPrevistaRepository.findByNome(tarefaPrevista.getNome());
         if(optionalTarefa.isEmpty()) {
             this.logger.info("Tarefa criado com sucesso");
-            tarefaEfetivaRepository.save(tarefaPrevista.getTarefaEfetiva());
             tarefaPrevistaRepository.save(tarefaPrevista);
             return Optional.of(tarefaPrevistaRepository.save(tarefaPrevista));
         }

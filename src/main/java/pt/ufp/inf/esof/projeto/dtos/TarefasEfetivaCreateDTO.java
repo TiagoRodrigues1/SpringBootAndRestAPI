@@ -1,14 +1,17 @@
 package pt.ufp.inf.esof.projeto.dtos;
 
 import lombok.Data;
-import pt.ufp.inf.esof.projeto.dtos.CreateDTO;
 import pt.ufp.inf.esof.projeto.modelos.TarefaEfetiva;
 
+import java.time.Duration;
+
 @Data
-public class TarefasEfetivasCreateDTO implements CreateDTO<TarefaEfetiva> {
+public class TarefasEfetivaCreateDTO implements CreateDTO<TarefaEfetiva> {
     private String nome;
     private float progresso;
-    private float periodoTempoTrabalhado;
+    private short dias;
+    private short horas;
+    private short minutos;
     private boolean concluida;
 
     @Override
@@ -16,7 +19,7 @@ public class TarefasEfetivasCreateDTO implements CreateDTO<TarefaEfetiva> {
         TarefaEfetiva tarefaEfetiva = new TarefaEfetiva();
         tarefaEfetiva.setProgresso(this.progresso);
         tarefaEfetiva.setNome(this.nome);
-        tarefaEfetiva.setPeriodoTempoTrabalhado(this.periodoTempoTrabalhado);
+        tarefaEfetiva.setPeriodoTempoTrabalhado(Duration.ofDays(dias).plusHours(horas).plusMinutes(minutos));
         tarefaEfetiva.setConcluida(this.concluida);
         return tarefaEfetiva;
     }
