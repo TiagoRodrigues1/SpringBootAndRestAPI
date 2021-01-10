@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import pt.ufp.inf.esof.projeto.dtos.TarefaPrevistaCreateDTO;
 import pt.ufp.inf.esof.projeto.dtos.TarefaPrevistaResponseDTO;
+import pt.ufp.inf.esof.projeto.dtos.TarefasCreateDTO;
 import pt.ufp.inf.esof.projeto.dtos.conversores.ConverterTarefaParaDTO;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
 import pt.ufp.inf.esof.projeto.services.TarefaService;
@@ -25,7 +25,7 @@ public class TarefaController {
     public TarefaController (TarefaService tarefaService) { this.tarefaService = tarefaService;}
 
     @PostMapping
-    public ResponseEntity<TarefaPrevistaResponseDTO> criarTarefa (@RequestBody TarefaPrevistaCreateDTO tarefa) {
+    public ResponseEntity<TarefaPrevistaResponseDTO> criarTarefa (@RequestBody TarefasCreateDTO tarefa) {
         this.logger.info("Post - criarTarefa");
         Optional<TarefaPrevista> optionalTarefaPrevista = tarefaService.criarTarefa(tarefa.converter());
         return optionalTarefaPrevista.map(value -> ResponseEntity.ok(converterTarefaParaDTO.converter(value))).orElseGet(() -> ResponseEntity.badRequest().build());

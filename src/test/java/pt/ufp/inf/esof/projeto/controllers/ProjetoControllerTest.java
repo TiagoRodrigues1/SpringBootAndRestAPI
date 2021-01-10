@@ -13,7 +13,6 @@ import pt.ufp.inf.esof.projeto.services.ProjetoService;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -29,10 +28,6 @@ class ProjetoControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void getProjetoByIdVal() {
-    }
-
-    @Test
     void criarProjeto() throws Exception {
         Projeto projeto = new Projeto();
         projeto.setNome("Projeto");
@@ -45,12 +40,6 @@ class ProjetoControllerTest {
         projeto1.setNome("Plataforma Digital");
         String projeto1String = new ObjectMapper().writeValueAsString(projeto1);
         mockMvc.perform(post("/projeto").content(projeto1String).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-
-
-    }
-
-    @Test
-    void getProjetoByIdTempo() {
     }
 
     @Test
@@ -58,16 +47,21 @@ class ProjetoControllerTest {
         Projeto projeto = new Projeto();
         projeto.setNome("Projeto1");
 
-        TarefaPrevistaCreateDTO tarefaPrevistaCreateDTO = new TarefaPrevistaCreateDTO();
-        tarefaPrevistaCreateDTO.setNome("TesteTarefa");
-        tarefaPrevistaCreateDTO.setTempoPrevistoConlusao(30);
+        TarefaPrevistaCreateDTO tarefaPrevista = new TarefaPrevistaCreateDTO();
+        tarefaPrevista.setNome("TestControlladorProjeto");
 
-        String tarefaJson = objectMapper.writeValueAsString(tarefaPrevistaCreateDTO);
-        when(projetoService.adicionaTarefa(1L, tarefaPrevistaCreateDTO.converter())).thenReturn(Optional.of(projeto));
-
+        String tarefaJson = objectMapper.writeValueAsString(tarefaPrevista);
+        when(projetoService.adicionaTarefa(1L, tarefaPrevista.converter().getNome())).thenReturn(Optional.of(projeto));
         mockMvc.perform(patch("/projeto/tarefa/1").contentType(tarefaJson).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
         mockMvc.perform(patch("/projeto/tarefa/2").contentType(tarefaJson).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-
-
     }
+
+    @Test
+    void getProjetoByIdTempo() {
+    }
+
+    @Test
+    void getProjetoByIdVal() {
+    }
+
 }

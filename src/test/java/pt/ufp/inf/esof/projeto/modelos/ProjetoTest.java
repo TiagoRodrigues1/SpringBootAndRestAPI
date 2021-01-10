@@ -2,6 +2,10 @@ package pt.ufp.inf.esof.projeto.modelos;
 
 
 import org.junit.jupiter.api.Test;
+
+import java.text.DecimalFormat;
+import java.time.Duration;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProjetoTest {
@@ -14,11 +18,13 @@ class ProjetoTest {
         TarefaEfetiva e = new TarefaEfetiva();
         TarefaEfetiva e1 = new TarefaEfetiva();
 
-        e.registarTempo(10,5); //Realizou 5% da Tarefa em 10Hrs
-        e1.registarTempo(5,100);//Realizou 100% da Tarefa em 5hrs quando estaria programado para 20hrs
+        Duration duration = Duration.ofHours(10).plusMinutes(30);
+        Duration duration1 = Duration.ofHours(5);
+        e.registarTempo(duration,5); //Realizou 5% da Tarefa em 10Hrs
+        e1.registarTempo(duration1,100);//Realizou 100% da Tarefa em 5hrs quando estaria programado para 20hrs
 
-        t.setTempoPrevistoConlusao(10);
-        t2.setTempoPrevistoConlusao(20);
+        t.setTempoPrevistoConlusao(Duration.ofHours(10));
+        t2.setTempoPrevistoConlusao(Duration.ofHours(20));
 
         Empregado emp = new Empregado();
         emp.setCargo(Empregado.Cargo.ANALISTA_SENIOR);
@@ -34,11 +40,7 @@ class ProjetoTest {
         p.adicionaTarefa(t);
         p.adicionaTarefa(t2);
 
-        //System.out.println(p.calcularTempo());
-
-        assertEquals(220,p.calcularTempo());
-
-        //assertEquals(2375,p.calcularTempo());
+        assertEquals(460,p.calcularTempo());
 
     }
 
@@ -50,29 +52,28 @@ class ProjetoTest {
         TarefaEfetiva e = new TarefaEfetiva();
         TarefaEfetiva e1 = new TarefaEfetiva();
 
-        e.registarTempo(10,5); //Realizou 5% da Tarefa em 10Hrs
-        e1.registarTempo(5,100);//Realizou 100% da Tarefa em 5hrs quando estaria programado para 20hrs
+        Duration duration = Duration.ofHours(10).plusMinutes(30);
+        Duration duration1 = Duration.ofHours(5);
+        e.registarTempo(duration,5); //Realizou 5% da Tarefa em 10Hrs
+        e1.registarTempo(duration1,100);//Realizou 100% da Tarefa em 5hrs quando estaria programado para 20hrs
 
-        t.setTempoPrevistoConlusao(10);
-        t2.setTempoPrevistoConlusao(20);
+        t.setTempoPrevistoConlusao(Duration.ofHours(10));
+        t2.setTempoPrevistoConlusao(Duration.ofHours(20));
 
-        Empregado emp = new Empregado();
-        emp.setCargo(Empregado.Cargo.ANALISTA_SENIOR);
         Empregado empregado = new Empregado();
         empregado.setCargo(Empregado.Cargo.DESENVOLVEDOR_JUNIOR);
-
-        t.setEmpregado(empregado);
-        t2.setEmpregado(emp);
+        Empregado emp = new Empregado();
+        emp.setCargo(Empregado.Cargo.ANALISTA_SENIOR);
 
         t.adicionaTarefa(e);
         t2.adicionaTarefa(e1);
 
+        t.setEmpregado(empregado);
+        t2.setEmpregado(emp);
+
         p.adicionaTarefa(t);
         p.adicionaTarefa(t2);
-
-        assertEquals(9600,p.calcularCusto());
-
-
+        assertEquals(20000.0,Double.parseDouble(new DecimalFormat("#.##").format(p.calcularCusto())));
 
     }
 }

@@ -25,10 +25,10 @@ class ProjetoRepositoryTest {
 
         TarefaPrevista tarefaPrevista = new TarefaPrevista();
         tarefaPrevista.setNome("TarefaPrevista");
-        tarefaPrevista.setTempoPrevistoConlusao(30);
+
         TarefaEfetiva tarefaEfetiva = new TarefaEfetiva();
         tarefaEfetiva.setNome("TarefaEfetive");
-        tarefaEfetiva.setPeriodoTempoTrabalhado(10);
+
         tarefaEfetiva.setProgresso(50);
         tarefaPrevista.setTarefaEfetiva(tarefaEfetiva);
         p.adicionaTarefa(tarefaPrevista);

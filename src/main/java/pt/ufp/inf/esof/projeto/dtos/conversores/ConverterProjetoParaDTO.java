@@ -28,7 +28,6 @@ public class ConverterProjetoParaDTO implements Conversor<ProjetoRespondeDTO, Pr
             previstaCreateDTO.setMinutos((short)tarefa.getTempoPrevistoConlusao().toMinutesPart());
             return previstaCreateDTO;
         }).collect(Collectors.toList()));
-
         return respondeDTO;
     }
 }

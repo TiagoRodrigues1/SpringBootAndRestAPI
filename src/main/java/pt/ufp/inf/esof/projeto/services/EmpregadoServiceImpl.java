@@ -22,11 +22,11 @@ public class EmpregadoServiceImpl implements EmpregadoService {
     }
 
     @Override
-    public Optional<Empregado> criarEmpregado(Empregado empregado) { //------------------------
-        this.logger.info("A criar novo Empregado" + empregado.getNome());
+    public Optional<Empregado> criarEmpregado(Empregado empregado) {
+        this.logger.info("A criar novo Empregado " + empregado.getNome());
         Optional<Empregado> optionalEmpregado = empregadoRepository.findByEmail(empregado.getEmail());
         if (optionalEmpregado.isEmpty()) {
-            this.logger.info("Empregado criado coom Sucesso");
+            this.logger.info("Empregado criado com Sucesso");
             empregadoRepository.save(empregado);
             return Optional.of(empregadoRepository.save(empregado));
         }

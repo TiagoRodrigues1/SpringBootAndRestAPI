@@ -31,24 +31,17 @@ class EmpregadoRepositoryTest {
         tarefaPrevista1.setNome("Tarefa2");
 
         TarefaEfetiva tarefaEfetiva = new TarefaEfetiva();
-        tarefaEfetiva.registarTempo(10,100);
         tarefaEfetiva.setNome("TarefaEfetiva");
-
-        //tarefaPrevista.setTarefaEfetiva(tarefaEfetiva);
-        //tarefaEfetiva.setTarefaPrevista(tarefaPrevista1);
 
         tarefaPrevista.adicionaTarefa(tarefaEfetiva);
 
         empregado.adicionaTarefa(tarefaPrevista);
         empregado.adicionaTarefa(tarefaPrevista1);
 
-
         tarefaEfetivaRepository.save(tarefaEfetiva);
         assertEquals(2,empregado.getTarefa().size());
         empregadoRepository.save(empregado);
         tarefaPrevistaRepository.save(tarefaPrevista);
-        //tarefaEfetivaRepository.save(tarefaEfetiva);
-
 
         System.out.println();
         assertEquals(1,empregadoRepository.count());

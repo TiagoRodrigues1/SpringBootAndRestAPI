@@ -2,20 +2,20 @@ package pt.ufp.inf.esof.projeto.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import pt.ufp.inf.esof.projeto.dtos.EmpregadoCreateDTO;
+import pt.ufp.inf.esof.projeto.dtos.TarefaPrevistaCreateDTO;
+import pt.ufp.inf.esof.projeto.dtos.TarefasCreateDTO;
+import pt.ufp.inf.esof.projeto.dtos.TarefasEfetivaCreateDTO;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
-import pt.ufp.inf.esof.projeto.repositories.EmpregadoRepository;
 import pt.ufp.inf.esof.projeto.services.TarefaService;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,19 +33,23 @@ class TarefaControllerTest {
 
     @Test
     void criarTarefa() throws Exception {
-        TarefaPrevista tarefaPrevista = new TarefaPrevista();
-        tarefaPrevista.setNome("TarefaPrevistaController");
-        tarefaPrevista.setTempoPrevistoConlusao(10);
+        TarefaPrevistaCreateDTO tarefaPrevista = new TarefaPrevistaCreateDTO();
+        tarefaPrevista.setNome("TarefaPrevistaControllerTest");
 
-        when(this.tarefaService.criarTarefa(tarefaPrevista)).thenReturn(Optional.of(tarefaPrevista));
+        TarefasEfetivaCreateDTO tarefaEfetiva = new TarefasEfetivaCreateDTO();
+        tarefaEfetiva.setNome("Teste");
 
-        String tarefaJson = new ObjectMapper().writeValueAsString(tarefaPrevista);
+        TarefasCreateDTO tarefasCreateDTO = new TarefasCreateDTO();
+        tarefasCreateDTO.setTarefasEfetivaCreateDTO(tarefaEfetiva);
+        tarefasCreateDTO.setTarefaPrevistaCreateDTO(tarefaPrevista);
 
+        TarefaPrevista tarefa = new TarefaPrevista();
+
+        when(this.tarefaService.criarTarefa(tarefasCreateDTO.converter())).thenReturn(Optional.of(tarefa));
+        String tarefaJson = new ObjectMapper().writeValueAsString(tarefasCreateDTO);
         mockMvc.perform(post("/tarefa").content(tarefaJson).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-
         TarefaPrevista tarefaPrevista1 = new TarefaPrevista();
         tarefaPrevista1.setNome("TarefaPrevista");
-
         String tarefaJson1 = new ObjectMapper().writeValueAsString(tarefaPrevista1);
 
         mockMvc.perform(post("/tarefa").content(tarefaJson1).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
@@ -55,7 +59,6 @@ class TarefaControllerTest {
     void adicionaEmpregado() throws Exception {
         TarefaPrevista tarefaPrevista = new TarefaPrevista();
         tarefaPrevista.setNome("TarefaPrevistaController");
-        tarefaPrevista.setTempoPrevistoConlusao(10);
 
         EmpregadoCreateDTO empregadoCreateDTO = new EmpregadoCreateDTO();
         empregadoCreateDTO.setEmail("teste@teste.pt");

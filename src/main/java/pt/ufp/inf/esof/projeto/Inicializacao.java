@@ -10,7 +10,6 @@ import pt.ufp.inf.esof.projeto.modelos.*;
 import pt.ufp.inf.esof.projeto.repositories.*;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 

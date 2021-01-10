@@ -24,14 +24,11 @@ class EmpregadoControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private EmpregadoService empregadoService;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     void criarEmpregado() throws Exception {
         Empregado empregado = new Empregado();
         empregado.setEmail("email");
-        //empregado.setCargo(Empregado.Cargo.ANALISTA_SENIOR);
 
         when(this.empregadoService.criarEmpregado(empregado)).thenReturn(Optional.of(empregado));
         String empregadoasJsonString = new ObjectMapper().writeValueAsString(empregado);

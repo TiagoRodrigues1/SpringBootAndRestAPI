@@ -6,6 +6,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import pt.ufp.inf.esof.projeto.modelos.Projeto;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
 
+import java.time.Duration;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -19,7 +21,7 @@ class TarefaPrevistaRepositoryTest {
     public void testaCriacaoTarefaPrevista() {
         TarefaPrevista tarefaPrevista = new TarefaPrevista();
         tarefaPrevista.setNome("TarefaPrevista");
-        tarefaPrevista.setTempoPrevistoConlusao(20);
+        tarefaPrevista.setTempoPrevistoConlusao(Duration.ofHours(20));
 
         Projeto projeto = new Projeto();
         projeto.setNome("Plataforma Digital de Comra");

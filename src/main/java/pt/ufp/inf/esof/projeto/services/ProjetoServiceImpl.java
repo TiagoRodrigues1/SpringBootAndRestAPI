@@ -9,18 +9,20 @@ import pt.ufp.inf.esof.projeto.modelos.Cliente;
 import pt.ufp.inf.esof.projeto.modelos.Projeto;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
 import pt.ufp.inf.esof.projeto.repositories.ProjetoRepository;
+import pt.ufp.inf.esof.projeto.repositories.TarefaPrevistaRepository;
 
-import java.time.Duration;
 import java.util.Optional;
 
 @Service
 public class ProjetoServiceImpl implements ProjetoService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ProjetoRepository projetoRepository;
+    private final TarefaPrevistaRepository tarefaPrevistaRepository;
 
     @Autowired
-    public ProjetoServiceImpl(ProjetoRepository projetoRepository) {
+    public ProjetoServiceImpl(ProjetoRepository projetoRepository, TarefaPrevistaRepository tarefaPrevistaRepository) {
         this.projetoRepository = projetoRepository;
+        this.tarefaPrevistaRepository = tarefaPrevistaRepository;
     }
 
     @Override
@@ -37,17 +39,20 @@ public class ProjetoServiceImpl implements ProjetoService {
     }
 
     @Override
-    public Optional<Projeto> adicionaTarefa(Long projetoID, TarefaPrevista tarefa) {
-        this.logger.info("A adicionar Tarefa " + tarefa.getNome() + " a Projeto");
+    public Optional<Projeto> adicionaTarefa(Long projetoID, String nome) {
+        this.logger.info("A adicionar Tarefa a Projeto");
         Optional<Projeto> optionalProjeto = projetoRepository.findById(projetoID);
-        if (optionalProjeto.isPresent()) {
-            this.logger.info("Tarefa adicionada com sucesso");
-            Projeto projeto = optionalProjeto.get();
-            projeto.adicionaTarefa(tarefa);
-            projetoRepository.save(projeto);
-            return Optional.of(projeto);
+        Optional<TarefaPrevista> optionalTarefaPrevista = tarefaPrevistaRepository.findByNome(nome);
+        if(optionalTarefaPrevista.isPresent()) {
+            if (optionalProjeto.isPresent()) {
+                this.logger.info("Tarefa adicionada com sucesso");
+                Projeto projeto = optionalProjeto.get();
+                projeto.adicionaTarefa(optionalTarefaPrevista.get());
+                projetoRepository.save(projeto);
+                return Optional.of(projeto);
+            }
         }
-        this.logger.info("Adição de Tarefa a Projeto falhou");
+        this.logger.info("Adição de Tarefa a Projeto falhou! Crie uma tarefa e depois adicione ao Projeto");
         return Optional.empty();
     }
 

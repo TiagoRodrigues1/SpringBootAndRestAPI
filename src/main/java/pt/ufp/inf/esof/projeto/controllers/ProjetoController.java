@@ -53,9 +53,9 @@ public class ProjetoController {
     }
 
     @PatchMapping("/tarefa/{id}")
-    public ResponseEntity<ProjetoRespondeDTO> adicionaTarefa (@PathVariable Long id, @RequestBody TarefaPrevistaCreateDTO tarefa) {
+    public ResponseEntity<ProjetoRespondeDTO> adicionaTarefa (@PathVariable Long id, @RequestBody String nome) {
         this.logger.info("Patch - adicionaTarefa");
-        Optional<Projeto> optionalTarefaPrevista = projetoService.adicionaTarefa(id,tarefa.converter());
+        Optional<Projeto> optionalTarefaPrevista = projetoService.adicionaTarefa(id,nome);
         return optionalTarefaPrevista.map(projeto -> ResponseEntity.ok(converterProjetoParaDTO.converter(projeto))).orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
@@ -67,4 +67,3 @@ public class ProjetoController {
     }
 
 }
-
