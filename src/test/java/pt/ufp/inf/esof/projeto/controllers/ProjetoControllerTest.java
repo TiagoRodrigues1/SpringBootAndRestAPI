@@ -56,12 +56,4 @@ class ProjetoControllerTest {
         mockMvc.perform(patch("/projeto/tarefa/2").contentType(tarefaJson).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
-    @Test
-    void getProjetoByIdTempo() {
-    }
-
-    @Test
-    void getProjetoByIdVal() {
-    }
-
 }

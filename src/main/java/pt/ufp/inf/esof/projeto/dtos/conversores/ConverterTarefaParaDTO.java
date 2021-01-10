@@ -5,7 +5,6 @@ import pt.ufp.inf.esof.projeto.dtos.EmpregadoCreateDTO;
 import pt.ufp.inf.esof.projeto.dtos.ProjetoCreateDTO;
 import pt.ufp.inf.esof.projeto.dtos.TarefaPrevistaResponseDTO;
 import pt.ufp.inf.esof.projeto.dtos.TarefasEfetivaCreateDTO;
-import pt.ufp.inf.esof.projeto.modelos.Projeto;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
 
 @Component

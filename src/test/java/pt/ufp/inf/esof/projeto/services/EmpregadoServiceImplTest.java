@@ -9,7 +9,8 @@ import pt.ufp.inf.esof.projeto.repositories.EmpregadoRepository;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = EmpregadoServiceImpl.class)

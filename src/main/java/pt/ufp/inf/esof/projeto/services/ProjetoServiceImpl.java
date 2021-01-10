@@ -43,14 +43,12 @@ public class ProjetoServiceImpl implements ProjetoService {
         this.logger.info("A adicionar Tarefa a Projeto");
         Optional<Projeto> optionalProjeto = projetoRepository.findById(projetoID);
         Optional<TarefaPrevista> optionalTarefaPrevista = tarefaPrevistaRepository.findByNome(nome);
-        if(optionalTarefaPrevista.isPresent()) {
-            if (optionalProjeto.isPresent()) {
+        if(optionalTarefaPrevista.isPresent() && optionalProjeto.isPresent()) {
                 this.logger.info("Tarefa adicionada com sucesso");
                 Projeto projeto = optionalProjeto.get();
                 projeto.adicionaTarefa(optionalTarefaPrevista.get());
                 projetoRepository.save(projeto);
                 return Optional.of(projeto);
-            }
         }
         this.logger.info("Adição de Tarefa a Projeto falhou! Crie uma tarefa e depois adicione ao Projeto");
         return Optional.empty();

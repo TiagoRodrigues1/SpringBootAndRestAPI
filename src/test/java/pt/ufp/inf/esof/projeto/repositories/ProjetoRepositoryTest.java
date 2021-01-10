@@ -7,7 +7,8 @@ import pt.ufp.inf.esof.projeto.modelos.Projeto;
 import pt.ufp.inf.esof.projeto.modelos.TarefaEfetiva;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
 class ProjetoRepositoryTest {

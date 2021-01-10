@@ -8,7 +8,8 @@ import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 class TarefaPrevistaRepositoryTest {

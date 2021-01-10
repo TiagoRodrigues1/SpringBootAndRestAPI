@@ -6,7 +6,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import pt.ufp.inf.esof.projeto.modelos.TarefaEfetiva;
 import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 class TarefaEfetivaRepositoryTest {

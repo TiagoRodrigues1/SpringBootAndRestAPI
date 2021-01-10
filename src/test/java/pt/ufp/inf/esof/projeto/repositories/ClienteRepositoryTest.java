@@ -6,7 +6,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import pt.ufp.inf.esof.projeto.modelos.Cliente;
 import pt.ufp.inf.esof.projeto.modelos.Projeto;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DataJpaTest
 class ClienteRepositoryTest {

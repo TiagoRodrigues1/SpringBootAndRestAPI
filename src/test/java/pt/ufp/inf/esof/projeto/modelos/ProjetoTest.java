@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.text.DecimalFormat;
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProjetoTest {
 
