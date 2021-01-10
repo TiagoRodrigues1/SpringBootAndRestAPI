@@ -6,8 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import pt.ufp.inf.esof.projeto.modelos.*;
-import pt.ufp.inf.esof.projeto.repositories.*;
+import pt.ufp.inf.esof.projeto.modelos.Empregado;
+import pt.ufp.inf.esof.projeto.modelos.Cliente;
+import pt.ufp.inf.esof.projeto.modelos.TarefaPrevista;
+import pt.ufp.inf.esof.projeto.modelos.TarefaEfetiva;
+import pt.ufp.inf.esof.projeto.modelos.Projeto;
+import pt.ufp.inf.esof.projeto.repositories.ClienteRepository;
+import pt.ufp.inf.esof.projeto.repositories.EmpregadoRepository;
+import pt.ufp.inf.esof.projeto.repositories.ProjetoRepository;
+import pt.ufp.inf.esof.projeto.repositories.TarefaPrevistaRepository;
+import pt.ufp.inf.esof.projeto.repositories.TarefaEfetivaRepository;
+
 
 import org.slf4j.Logger;
 
@@ -15,7 +24,7 @@ import java.time.Duration;
 
 @Component
 public class Inicializacao implements ApplicationListener<ContextRefreshedEvent> {
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private ClienteRepository clienteRepository; //Atributos podem ser finais devido ao construtor ser autowired
