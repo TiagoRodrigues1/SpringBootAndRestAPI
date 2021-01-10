@@ -18,15 +18,15 @@ public class Inicializacao implements ApplicationListener<ContextRefreshedEvent>
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private  ClienteRepository clienteRepository; //Atributos podem ser finais devido ao construtor ser autowired
+    private ClienteRepository clienteRepository; //Atributos podem ser finais devido ao construtor ser autowired
     @Autowired
-    private  EmpregadoRepository empregadoRepository;
+    private EmpregadoRepository empregadoRepository;
     @Autowired
-    private  ProjetoRepository projetoRepository;
+    private ProjetoRepository projetoRepository;
     @Autowired
     private  TarefaPrevistaRepository tarefaPrevistaRepository;
     @Autowired
-    private  TarefaEfetivaRepository tarefaEfetivaRepository;
+    private TarefaEfetivaRepository tarefaEfetivaRepository;
 
     @SneakyThrows
     @Override

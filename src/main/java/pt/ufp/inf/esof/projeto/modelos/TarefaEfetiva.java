@@ -45,5 +45,4 @@ public class TarefaEfetiva {
         }
         return this.tarefaPrevista.getTempoPrevistoConlusao().toMinutes();
     }
-
 }

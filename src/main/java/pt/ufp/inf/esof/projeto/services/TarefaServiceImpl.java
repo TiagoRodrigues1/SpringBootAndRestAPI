@@ -47,16 +47,14 @@ public class TarefaServiceImpl implements TarefaService {
         this.logger.info("A adicionar Empregado com email " + email + " a Projeto");
         Optional<TarefaPrevista> optionalTarefa = this.tarefaPrevistaRepository.findById(id);
         Optional<Empregado> empregado = this.empregadoRepository.findByEmail(email); // acessa o repositorio do empregado
-        if(empregado.isPresent()) { //verificar se o empregado existe
-            if (optionalTarefa.isPresent()) {
-                this.logger.info("Empregado adicionado com sucesso");
-                TarefaPrevista tarefa = optionalTarefa.get(); //ir buscar a tarefa
-                Empregado empregado1 = empregado.get();
-                empregado1.adicionaTarefa(tarefa);
-                empregadoRepository.save(empregado1);
-                tarefaPrevistaRepository.save(tarefa);
-                return Optional.of(tarefa);
-            }
+        if (optionalTarefa.isPresent() && empregado.isPresent()) {
+            this.logger.info("Empregado adicionado com sucesso");
+            TarefaPrevista tarefa = optionalTarefa.get(); //ir buscar a tarefa
+            Empregado empregado1 = empregado.get();
+            empregado1.adicionaTarefa(tarefa);
+            empregadoRepository.save(empregado1);
+            tarefaPrevistaRepository.save(tarefa);
+            return Optional.of(tarefa);
         }
         this.logger.info("Adição de empregado a Tarefa Falhou");
         return Optional.empty();
