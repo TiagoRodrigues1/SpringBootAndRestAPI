@@ -2,21 +2,22 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7cae94bf56014ba293882cd959dd87d5)](https://app.codacy.com/gh/TiagoRodrigues1/projEngSoft?utm_source=github.com&utm_medium=referral&utm_content=TiagoRodrigues1/projEngSoft&utm_campaign=Badge_Grade)
 
-College students management API made with spring boot.
+College students management API made with spring boot using an MVC architecture
 
 This also includes tests using JUnit, and Mockito. 
-Also uses a in-memory DB: H2 Database.
-## Modelos
-Modelos basicos de suporte á API.
+The used DB is in-memory H2.
+
+## Models
+Basic support models for the API. 
 
 ## Repositories
-Comunicação com a base de dados, foi utilizada a H2db, que é uma base de dados em memória.
+Repositories take care of the communication between application and the database.
 
 ## Controllers
-Servem para falar com os serviços e estabelecer as rotas para um certo endpoint.
+Establish routes and access the services.
 
 ## Services
-Todas a lógica é implementada nos serviços, adição, remoção, etc...
+All the logic is implemented here in the services.
 
 ## DTOS
-Data transfer objects, usados para "esconder" dados que não são precisos, ou até dados sensíveis.
+Data transfer objects, used to hide data that is not needed/sensible
